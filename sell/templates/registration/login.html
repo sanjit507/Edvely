@@ -1,0 +1,21 @@
+
+{% extends "sell/base.html" %}
+
+{% block content  %}
+
+<h1 id="form" >  Login </h2>
+    <style>
+#form {
+    margin-bottom: 50px;
+    margin-left: 500px;
+}
+
+    </style>
+
+    <form id="form" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+<button>  Submit </button>
+    </form>
+
+{% endblock %}

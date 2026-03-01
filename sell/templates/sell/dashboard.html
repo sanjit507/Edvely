@@ -1,0 +1,104 @@
+{% extends "sell/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body p-5">
+
+          <!-- Profile Header -->
+          <div class="text-center">
+            <img 
+              src="{{ user.profile.profile_image.url }}" 
+              class="rounded-circle shadow-sm mb-3"
+              width="140"
+              height="140"
+              style="object-fit: cover;"
+              alt="Profile Image"
+            >
+
+            <h2 class="fw-bold mb-1 text-capitalize">
+              {{ user.username }}
+            </h2>
+            <p class="text-muted mb-4">
+              Welcome to your dashboard
+            </p>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Info Section -->
+          <div class="row g-4">
+
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 h-100">
+                <small class="text-muted">City</small>
+                <h6 class="fw-semibold mb-0">
+                  {{ user.profile.city|default:"Not provided" }}
+                </h6>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 h-100">
+                <small class="text-muted">Phone</small>
+                <h6 class="fw-semibold mb-0">
+                  {{ user.profile.phone|default:"Not provided" }}
+                </h6>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 h-100">
+                <small class="text-muted">Country</small>
+                <h6 class="fw-semibold mb-0">
+                  {{ user.profile.country|default:"Not provided" }}
+                </h6>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 h-100">
+                <small class="text-muted">Member Since</small>
+                <h6 class="fw-semibold mb-0">
+                  {{ user.date_joined|date:"d M Y" }}
+                </h6>
+              </div>
+            </div>
+
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Purchased Courses Section -->
+          <h4 class="fw-bold mb-3">My Courses</h4>
+          <ul class="list-group mb-4">
+            {% for uc in user_courses %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>{{ uc.Course.name }}</span>
+              <a href="{% url 'course_detail' uc.Course.slug %}" class="btn btn-primary btn-sm">View Course</a>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No courses purchased yet.</li>
+            {% endfor %}
+          </ul>
+
+          <!-- Action -->
+          <div class="text-center">
+            <a href="{% url 'profile' %}" class="btn btn-dark px-5 py-2 rounded-pill">
+              Edit Profile
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

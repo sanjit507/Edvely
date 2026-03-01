@@ -1,0 +1,213 @@
+{% extends "sell/base.html" %}
+{% load static %}
+
+{% block title %}
+Courses Express
+{% endblock %}
+
+{% block content %}
+
+
+<section class="blink">
+  <h1>Learn With <span class="gradient-text" id="typewriter"></span><span class="blinking-cursor">|</span></h1>
+  <p>
+    High-quality, affordable courses to build real-world skills and careers
+  </p>
+</section>
+
+<!-- ================= HERO SECTION ================= -->
+<section class="bg-light py-5 mb-5 rounded">
+  <div class="container text-center">
+    <h1 class="fw-bold display-6">
+      Learn Skills That Get You Hired 🚀
+    </h1>
+    <p class="text-muted mt-3">
+      High-quality, affordable courses with lifetime access and real-world projects.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a href="#courses" class="btn btn-primary btn-lg">
+        Browse Courses
+      </a>
+      <a href="#" class="btn btn-outline-secondary btn-lg">
+        Why Choose Us?
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES SECTION ================= -->
+<section class="container my-5">
+  <div class="row text-center g-4">
+
+    <div class="col-md-3">
+      <div class="p-4 border rounded shadow-sm h-100">
+        <h5>🎓 Expert Instructors</h5>
+        <p class="small text-muted">
+          Learn from industry-experienced mentors
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="p-4 border rounded shadow-sm h-100">
+        <h5>♾ Lifetime Access</h5>
+        <p class="small text-muted">
+          Access content anytime, anywhere
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="p-4 border rounded shadow-sm h-100">
+        <h5>📜 Certificate</h5>
+        <p class="small text-muted">
+          Get verified completion certificates
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="p-4 border rounded shadow-sm h-100">
+        <h5>💬 Support</h5>
+        <p class="small text-muted">
+          Doubt clearing & guidance
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= COURSES SECTION ================= -->
+<div class="container-fluid mt-5">
+  <h2 id="courses" class="fw-bold mb-4">
+    Our Popular Courses
+  </h2>
+
+  <div class="row g-4">
+
+    {% for course in courses %}
+    <div class="col-md-4 d-flex">
+      <div class="card shadow-sm border-0 w-100 h-100">
+
+        {% if course.thumbnail %}
+        <img src="{{ course.thumbnail.url }}"
+             class="card-img-top img-fluid"
+             style="height:250px; object-fit:cover;"
+             alt="{{ course.name }}">
+        {% else %}
+        <img src="{% static 'sell/default-course.png' %}"
+             class="card-img-top img-fluid"
+             style="height:250px; object-fit:cover;"
+             alt="{{ course.name }}">
+        {% endif %}
+
+        <div class="card-body d-flex flex-column">
+
+          <h5 class="card-title fw-bold">
+            {{ course.name }}
+          </h5>
+
+          <p class="card-text text-muted small">
+            {{ course.description|truncatewords:20 }}
+          </p>
+
+        
+
+          <div class="mt-auto">
+
+            <p class="mb-1 text-success fw-semibold">
+              Save {{ course.discount }}%
+            </p>
+
+            <p class="mb-3">
+              <span class="text-muted text-decoration-line-through">
+                ₹ {{ course.price|floatformat:0 }}
+              </span>
+              <span class="fs-5 fw-bold text-dark ms-2">
+                ₹ {{ course.discounted_price }}
+              </span>
+            </p>
+
+            <div class="d-flex gap-2">
+              <a href="{% url 'checkout' course.slug %}"
+                 class="btn btn-primary w-100">
+                Enroll Now
+              </a>
+              <a href="{% url 'course_detail' course.slug %}"
+                 class="btn btn-outline-info w-100">
+                Details
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No courses available.</p>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="bg-light py-5 mt-5">
+  <div class="container">
+    <h3 class="text-center fw-bold mb-4">
+      What Students Say
+    </h3>
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <p class="small">
+            “This platform helped me crack interviews. Clear explanations and projects.”
+          </p>
+          <strong>— Rahul, B.Tech</strong>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <p class="small">
+            “Best affordable courses with lifetime access. Totally worth it.”
+          </p>
+          <strong>— Neha, MCA</strong>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <p class="small">
+            “Simple UI, quality content, and good support.”
+          </p>
+          <strong>— Aman, CSE</strong>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALL TO ACTION ================= -->
+<section class="text-center py-5 bg-primary text-white mt-5 rounded">
+  <h2 class="fw-bold">
+    Start Learning Today
+  </h2>
+  <p class="mt-2">
+    Join thousands of students improving their careers
+  </p>
+  <a href="#" class="btn btn-light btn-lg mt-3">
+    Start Learning Today 
+  </a>
+</section>
+
+
+
+
+
+{% endblock %}
