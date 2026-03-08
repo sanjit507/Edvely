@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-from pathlib import Path
 from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,10 +25,7 @@ SECRET_KEY = 'django-insecure-n@e5=m9_952+p+5%fmll_(q&vkcme^vei3q8aei7lgl(2uv7)t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-<<<<<<< HEAD
 
-=======
->>>>>>> 0b5e7b9 (render deploy)
 ALLOWED_HOSTS = ['*']
 
 
@@ -136,7 +133,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
-load_dotenv(BASE_DIR / ".env")
+# Load dotenv from project root and also from the venv folder (some setups put .env there)
+
+load_dotenv(BASE_DIR / "venv" / ".env")
+
+# Read Razorpay keys from environment
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 

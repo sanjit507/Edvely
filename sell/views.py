@@ -5,8 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .form import ProfileForm
 from course.settings import *
-import razorpay 
-client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+import razorpay
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -82,6 +81,10 @@ def checkout(request, slug):
     order=None
     if action == 'checkout':
         amount = int(course.discounted_price * 100)
+        # Create Razorpay client at request time to ensure env vars are loaded
+        if not RAZORPAY_KEY_ID or not RAZORPAY_KEY_SECRET:
+            return HttpResponse("Razorpay keys not configured", status=500)
+        client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
         order = client.order.create({
             'amount': amount,
             'currency': 'INR',
